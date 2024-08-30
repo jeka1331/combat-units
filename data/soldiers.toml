@@ -1,0 +1,19 @@
+[[soldiers]]
+rank = "Рядовой"
+fio = "Иванов Иван Иванович"
+vzvod = "vnv"
+
+[[soldiers]]
+rank = "Сержант"
+fio = "Петров Петр Петрович"
+vzvod = "kv"
+
+[[soldiers]]
+rank = "Лейтенант"
+fio = "Сидоров Сидор Сидорович"
+vzvod = "vnv"
+
+[[soldiers]]
+rank = "Лейтенант"
+fio = "Ольхин Евгений Александрович"
+vzvod = "vnv"

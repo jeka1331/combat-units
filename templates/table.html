@@ -1,0 +1,73 @@
+<!-- templates/table.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Боевой расчет</title>
+</head>
+<style>
+    table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+</style>
+<body>
+    <h1>Жаунгелік есеп топ<br>Жеке құрамы<br>{creation_date} - {next_day}
+    </h1>
+    <table border="1" border-collapse>
+        <thead>
+            <tr>
+                <th>Нысан</th>
+                <th>Т.А.Ә</th>
+                <th>Әскери киім</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for assigned_position in assigned_positions %}
+            <tr>
+                <td>{{ assigned_position.position }}</td>
+                <td>{{ assigned_position.fio }}</td>
+                <td>{{ assigned_position.ammo }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        
+    </table>
+    <h1>Кезекші бөлімше</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Әскери атағы</th>
+                <th>Т.А.Ә</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for duty_group_member in duty_group_members %}
+            <tr>
+                <td>{{ duty_group_member.rank }}</td>
+                <td>{{ duty_group_member.fio }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h1>Өрт сөндіру тобы</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Нысан</th>
+                <th>Т.А.Ә</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for fire_group_member in fire_group_members %}
+            <tr>
+                <td>{{ fire_group_member.rank }}</td>
+                <td>{{ fire_group_member.fio }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

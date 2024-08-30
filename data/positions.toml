@@ -1,0 +1,17 @@
+[[positions]]
+name = "Штаб-наряд"
+ammo = "Б К"
+member_count = 1
+vzvod_priority = "vnv"
+
+[[positions]]
+name = "Усиление штаба"
+ammo = "Б К А"
+member_count = 2
+vzvod_priority = "vnv"
+
+[[positions]]
+name = "КПП-1"
+ammo = "Б К А Р"
+member_count = 1
+vzvod_priority = "kv"
