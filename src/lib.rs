@@ -1,15 +1,31 @@
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 use tera::{Tera, Context};
-use std::collections::HashMap;
 use std::error::Error;
 use std::fs;
 
 
-#[derive(Debug, Deserialize)]
+
+
+pub type AssignedPositions = Vec<AssignedPosition>;
+pub type FireGroupMembers = Vec<FireGroupMember>;
+pub type DutyGroupMembers = Vec<DutyGroupMember>;
+
+#[derive(Debug, Deserialize, Serialize)]
+pub struct AssignedPosition {
+    pub position: Position,
+    pub member: Soldier,
+}
+
+
+
+pub type DutyGroupMember = Soldier;
+pub type FireGroupMember = Soldier;
+
+#[derive(Debug, Deserialize, Serialize)]
 pub struct Soldier {
-    rank: String,
-    fio: String,
-    vzvod: String,
+    pub rank: String,
+    pub fio: String,
+    pub vzvod: String,
 }
 
 #[derive(Debug, Deserialize)]
@@ -18,12 +34,12 @@ pub struct SoldiersList {
 }
 
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize)]
 pub struct Position {
-    name: String,
-    ammo: String,
-    member_count: isize,
-    vzvod_priority: String,
+    pub name: String,
+    pub ammo: String,
+    pub member_count: isize,
+    pub vzvod_priority: String,
 }
 
 #[derive(Debug, Deserialize)]
@@ -60,20 +76,29 @@ pub fn render_template_to_file(
     template_path: &str,
     template_name: &str,
     output_path: &str,
-    data: &HashMap<&str, Vec<HashMap<String, String>>>
+    assigned_positions: AssignedPositions,
+    duty_group_members: DutyGroupMembers,
+    fire_group_members: FireGroupMembers,
+    creation_date: &str,
+    next_day: &str
+
 ) -> Result<(), Box<dyn Error>> {
     // Инициализация шаблонизатора Tera и загрузка шаблонов
     let tera = Tera::new(template_path)?;
 
     // Создание контекста и добавление данных
     let mut context = Context::new();
-    context.insert("people", data);
+    context.insert("duty_group_members", &duty_group_members);
+    context.insert("assigned_positions", &assigned_positions);
+    context.insert("fire_group_members", &fire_group_members);
+    context.insert("creation_date", creation_date);
+    context.insert("next_day", next_day);
 
     // Рендеринг шаблона в HTML
-    let rendered = tera.render(template_name, &context)?;
+    let rendered = tera.render(template_name, &context).expect("Файл не прошел рендер");
 
     // Сохранение HTML в файл
-    fs::write(output_path, rendered)?;
+    fs::write(output_path, rendered).expect("Файл не записан");
 
     println!("HTML has been written to {}", output_path);
 

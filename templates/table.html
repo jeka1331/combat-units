@@ -13,7 +13,7 @@
 }
 </style>
 <body>
-    <h1>Жаунгелік есеп топ<br>Жеке құрамы<br>{creation_date} - {next_day}
+    <h1>Жаунгелік есеп топ<br>Жеке құрамы<br>{{creation_date}} - {{next_day}}
     </h1>
     <table border="1" border-collapse>
         <thead>
@@ -26,9 +26,9 @@
         <tbody>
             {% for assigned_position in assigned_positions %}
             <tr>
-                <td>{{ assigned_position.position }}</td>
-                <td>{{ assigned_position.fio }}</td>
-                <td>{{ assigned_position.ammo }}</td>
+                <td>{{ assigned_position.position.name }}</td>
+                <td>{{ assigned_position.member.fio }}</td>
+                <td>{{ assigned_position.position.ammo }}</td>
             </tr>
             {% endfor %}
         </tbody>
