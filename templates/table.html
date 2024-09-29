@@ -58,7 +58,12 @@
             {% for assigned_position in assigned_positions %}
             <tr>
                 <td class="position-name">{{ assigned_position.position.name }}</td>
-                <td class="fio">{{ assigned_position.member.fio }}</td>
+                <td class="fio">
+                    {% for member in assigned_position.members %}
+                    
+                        {{ member.fio }}<br>
+                    {% endfor %}
+                </td>
                 <td class="ammo">{{ assigned_position.position.ammo }}</td>
             </tr>
             {% endfor %}
