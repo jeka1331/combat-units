@@ -1,44 +1,76 @@
-<!-- templates/table.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Боевой расчет</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: 'Times New Roman', serif;
+            font-size: 14pt;
+        }
+        table {
+            /* width: 100%; */
+            margin: 0 auto;
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 0px 8px 0px 8px;
+        }
+        h1 {
+            text-decoration: underline;
+            font-family: 'Times New Roman', serif;
+            font-size: 14pt;
+            text-transform: uppercase;
+        }
+        .position-name {
+            text-align: left;
+            min-width: 150px;
+        }
+        .fio {
+            text-align: center;
+            min-width: 100px;
+        }
+        .ammo {
+            text-align: left;
+            min-width: 50px;
+        }
+        .position-name-fire {
+            text-align: left;
+            min-width: 50px;
+        }
+    </style>
 </head>
-<style>
-    table, th, td {
-  border: 1px solid black;
-  border-collapse: collapse;
-}
-</style>
 <body>
-    <h1>Жаунгелік есеп топ<br>Жеке құрамы<br>{{creation_date}} - {{next_day}}
-    </h1>
-    <table border="1" border-collapse>
+    <h1>Жаунгелік есеп топ<br>Жеке құрамы<br>{{creation_date}} - {{next_day}}</h1>
+    <table>
         <thead>
             <tr>
                 <th>Нысан</th>
                 <th>Т.А.Ә</th>
-                <th>Әскери киім</th>
+                <th>Әскери<br>киім</th>
             </tr>
         </thead>
         <tbody>
             {% for assigned_position in assigned_positions %}
             <tr>
-                <td>{{ assigned_position.position.name }}</td>
-                <td>{{ assigned_position.member.fio }}</td>
-                <td>{{ assigned_position.position.ammo }}</td>
+                <td class="position-name">{{ assigned_position.position.name }}</td>
+                <td class="fio">{{ assigned_position.member.fio }}</td>
+                <td class="ammo">{{ assigned_position.position.ammo }}</td>
             </tr>
             {% endfor %}
         </tbody>
-        
     </table>
+    <p style="text-align: center; margin-top: 0;">ескерту: Б - бронежилет, К - каска, А - автомат, Р - рация</p>
+
     <h1>Кезекші бөлімше</h1>
     <table>
         <thead>
             <tr>
-                <th>Әскери атағы</th>
+                <th>Әскери<br>атағы</th>
                 <th>Т.А.Ә</th>
             </tr>
         </thead>
@@ -46,7 +78,7 @@
             {% for duty_group_member in duty_group_members %}
             <tr>
                 <td>{{ duty_group_member.rank }}</td>
-                <td>{{ duty_group_member.fio }}</td>
+                <td class="fio">{{ duty_group_member.fio }}</td>
             </tr>
             {% endfor %}
         </tbody>
@@ -63,8 +95,8 @@
         <tbody>
             {% for fire_group_member in fire_group_members %}
             <tr>
-                <td>{{ fire_group_member.rank }}</td>
-                <td>{{ fire_group_member.fio }}</td>
+                <td class="position-name-fire">{{ fire_group_member.rank }}</td>
+                <td class="fio">{{ fire_group_member.fio }}</td>
             </tr>
             {% endfor %}
         </tbody>
