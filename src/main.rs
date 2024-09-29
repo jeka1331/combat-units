@@ -16,10 +16,12 @@ fn main() -> Result<(), Box<dyn Error>> {
     let positions = read_positions_from_toml("data/positions.toml")?;
     let naryad = read_naryad_from_toml("data/naryad.toml")?;
     let naryad_for_shtab = naryad.clone();
+    let naryad_for_kazarma = naryad.clone();
     let naryad_soldier_ids = naryad.get_only_values();
 
     let soldiers: Vec<Soldier> = read_soldiers_from_toml("data/soldiers.toml")?.soldiers;
     let shtab: Vec<Soldier> = naryad_for_shtab.get_shtab(soldiers.clone());
+    let kazarma: Vec<Soldier> = naryad_for_kazarma.get_dnev(soldiers.clone());
     let soldiers: Vec<Soldier> = soldiers
         .iter()
         .filter(|&item| !naryad_soldier_ids.contains(&item.id)) // Условие фильтрации
@@ -48,6 +50,13 @@ fn main() -> Result<(), Box<dyn Error>> {
                 } else {
                     members
                 };
+                
+                let members: Vec<Soldier> = if position.name == "Казарма" {
+                    kazarma.clone()
+                } else {
+                    members
+                };
+
                 members
             },
         });

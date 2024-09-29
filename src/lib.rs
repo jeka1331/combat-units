@@ -54,22 +54,54 @@ pub struct PositionsList {
 
 #[derive(Debug, Deserialize, Clone)]
 pub struct Naryad {
-    kpp1: usize,
-    kpp2: usize,
-    shtab: usize,
+    kpp1_1: usize,
+    kpp1_2: usize,
+    kpp2_1: usize,
+    kpp3_1: usize,
+    kpp3_2: usize,
+    kpp4_1: usize,
+    kpp4_2: usize,
+    shtab_pom: usize,
+    shtab_dezh: usize,
+    dnev_1: usize,
+    dnev_2: usize,
+    dezh: usize,
 }
 
 impl Naryad {
     pub fn get_only_values(self) -> Vec<usize> {
-        vec![self.kpp1, self.kpp2, self.shtab]
+        vec![
+            self.kpp1_1,
+            self.kpp1_2,
+            self.kpp2_1,
+            self.kpp3_1,
+            self.kpp3_2,
+            self.kpp4_1,
+            self.kpp4_2,
+            self.shtab_pom,
+            self.shtab_dezh,
+            self.dnev_1,
+            self.dnev_2,
+            self.dezh,
+        ]
     }
-    
+
     pub fn get_shtab(self, soldiers: Soldiers) -> Vec<Soldier> {
-        soldiers.clone()
-        .iter()
-        .filter(|&item| item.id == self.shtab) // Условие фильтрации
-        .cloned()
-        .collect()
+        soldiers
+            .clone()
+            .iter()
+            .filter(|&item| item.id == self.shtab_pom || item.id == self.shtab_dezh) // Условие фильтрации
+            .cloned()
+            .collect()
+    }
+
+    pub fn get_dnev(self, soldiers: Soldiers) -> Vec<Soldier> {
+        soldiers
+            .clone()
+            .iter()
+            .filter(|&item| item.id == self.dnev_1 || item.id == self.dnev_2) // Условие фильтрации
+            .cloned()
+            .collect()
     }
 }
 
